@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            thead {
+                background-color: deepskyblue;
+                color: #fff;
+            }
+
+            th,
+            td {
+                border: 1px solid black;
+                padding: 5px 16px;
+                text-align: center;
+                width: 20%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <h3>{{ sort_key }} {{ sort_asc ? '昇順' : '降順'}}</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th @click="sortBy('id')">ID</th>
+                        <th @click="sortBy('name')">名前</th>
+                        <th @click="sortBy('company')">会社名</th>
+                        <th @click="sortBy('division')">部署</th>
+                        <th @click="sortBy('title')">役職</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="person in card" :key="person.id">
+                        <td>{{ person.id }}</td>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.company }}</td>
+                        <td>{{ person.division }}</td>
+                        <td>{{ person.title }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@3.2.29/dist/vue.global.js"></script>
+        <script src="vue.js"></script>
+    </body>
+</html>
