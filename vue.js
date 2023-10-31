@@ -4,6 +4,8 @@ Vue.createApp({
       card: [],
       sort_key: "",
       sort_asc: true,
+      selectCategory: "all",
+      searchKeyword: "",
     };
   },
   async created() {
@@ -20,18 +22,58 @@ Vue.createApp({
 
       if (this.sort_key !== "") {
         let set = this.sort_asc ? 1 : -1;
-        if (this.sort_key === 'id') {
+        if (this.sort_key === "id") {
           this.card.sort((a, b) => (a[this.sort_key] - b[this.sort_key]) * set);
         } else {
           this.card.sort((a, b) => {
-            const valueA = a[this.sort_key];
-            const valueB = b[this.sort_key];
-            const comparison = valueA.localeCompare(valueB, 'ja', { sensitivity: 'base' });
+            let valueA = a[this.sort_key];
+            let valueB = b[this.sort_key];
+            let comparison = valueA.localeCompare(valueB, "ja", {
+              sensitivity: "base",
+            });
             return comparison * set;
           });
         }
         console.log("Sorted Data: ", this.card);
       }
     },
-  }
+    search() {
+      this.card = this.filterItems();
+    },
+    filterItems() {
+      let filtered = this.card;
+      if (this.selectCategory !== "all" && this.searchKeyword !== "") {
+        filtered = filtered.filter((item) => {
+          if (
+            this.selectCategory === "id" &&
+            item.id.toString().includes(this.searchKeyword)
+          ) {
+            return true;
+          } else if (
+            this.selectCategory === "name" &&
+            item.name.includes(this.searchKeyword)
+          ) {
+            return true;
+          } else if (
+            this.selectCategory === "company" &&
+            item.company.includes(this.searchKeyword)
+          ) {
+            return true;
+          } else if (
+            this.selectCategory === "division" &&
+            item.division.includes(this.searchKeyword)
+          ) {
+            return true;
+          } else if (
+            this.selectCategory === "title" &&
+            item.title.includes(this.searchKeyword)
+          ) {
+            return true;
+          }
+          return false;
+        });
+      }
+      return filtered;
+    },
+  },
 }).mount("#app");
