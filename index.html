@@ -23,7 +23,17 @@
     </head>
     <body>
         <div id="app">
-            <h3>{{ sort_key }} {{ sort_asc ? '昇順' : '降順'}}</h3>
+            <label for="sortOrder">並び順:</label>
+            <span>{{ sort_key }} {{ sort_asc ? '昇順' : '降順'}}</span>&nbsp; <label for="category">カテゴリー:</label>
+            <select id="category" v-model="selectCategory" @change="search">
+                <option value="all">全て表示</option>
+                <option value="id">ID</option>
+                <option value="name">名前</option>
+                <option value="company">会社名</option>
+                <option value="division">部署</option>
+                <option value="title">役職</option>
+            </select>&nbsp; <input type="text" v-model="searchKeyword">
+            <input type="button" value="検索" @click="search">
             <table>
                 <thead>
                     <tr>
@@ -35,7 +45,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="person in card" :key="person.id">
+                    <tr v-for="person in searchResult" :key="person.id">
                         <td>{{ person.id }}</td>
                         <td>{{ person.name }}</td>
                         <td>{{ person.company }}</td>
