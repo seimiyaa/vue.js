@@ -34,6 +34,14 @@
                 <option value="title">役職</option>
             </select>&nbsp; <input type="text" v-model="searchKeyword">
             <input type="button" value="検索" @click="search">
+            <form @submit.prevent="addNewInfo">
+                <label for="name">名前:</label>
+                <input type="text" id="name" v-model="newInfo.name" required> &nbsp; <label for="company">会社名:</label>
+                <input type="text" id="company" v-model="newInfo.company" required> &nbsp; <label for="division">部署:</label>
+                <input type="text" id="division" v-model="newInfo.division" required> &nbsp; <label for="title">役職:</label>
+                <input type="text" id="title" v-model="newInfo.title">
+                <button type="submit">作成</button>
+            </form>
             <table>
                 <thead>
                     <tr>
